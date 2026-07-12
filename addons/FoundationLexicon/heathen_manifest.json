@@ -1,0 +1,15 @@
+{
+    "id": "FoundationLexicon",
+    "display_name": "Foundation for Lexicon",
+    "version": "1.1.0",
+    "repo": "heathen-engineering/Godot-Lexicon-Localisation-Foundation",
+    "release_asset_pattern": "FoundationLexicon-{version}.zip",
+    "dependencies": [
+        {
+            "id": "FoundationGameFramework",
+            "repo": "heathen-engineering/Godot-Game-Framework",
+            "release_asset_pattern": "FoundationGameFramework-{version}.zip",
+            "min_version": "1.0.0"
+        }
+    ]
+}
