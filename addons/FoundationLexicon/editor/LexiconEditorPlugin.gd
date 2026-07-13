@@ -2,8 +2,10 @@
 extends EditorPlugin
 
 ## Activates the Lexicon editor tooling: the compact LexiconText/LexiconAsset/
-## LexiconSound inspector plugin, and the "Lexicon" bottom-panel dock. Enable via
-## Project Settings > Plugins (this addon's plugin.cfg now points here).
+## LexiconSound inspector plugin, and the "Lexicon" settings page — handed to
+## the unified Project Settings > Subsystems tab (Godot-Game-Framework) instead
+## of building its own bottom-panel dock. Enable via Project Settings > Plugins
+## (this addon's plugin.cfg now points here).
 ##
 ## Gated: FoundationLexicon.gdextension (the native library everything here
 ## ultimately depends on — LexiconRegistry, the Subsystem integration, all
@@ -24,7 +26,6 @@ extends EditorPlugin
 const HeathenGate = preload("res://addons/FoundationLexicon/gate/heathen_gate.gd")
 
 var _inspector_plugin: Object
-var _dock: LexiconDock
 
 func _enter_tree() -> void:
 	if HeathenGate.ensure_unlocked(self, "FoundationLexicon", _activate_tooling):
@@ -38,14 +39,14 @@ func _activate_tooling() -> void:
 	_inspector_plugin = inspector_script.new()
 	add_inspector_plugin(_inspector_plugin)
 
-	_dock = LexiconDock.new()
-	add_control_to_bottom_panel(_dock, "Lexicon")
+	var bridge = Engine.get_singleton("SubsystemManagerBridge")
+	if bridge != null:
+		bridge.register_settings_panel("Lexicon", Callable(self, "_build_settings_panel"))
+
+func _build_settings_panel() -> Control:
+	return LexiconDock.new()
 
 func _exit_tree() -> void:
 	if _inspector_plugin != null:
 		remove_inspector_plugin(_inspector_plugin)
 		_inspector_plugin = null
-	if _dock != null:
-		remove_control_from_bottom_panel(_dock)
-		_dock.queue_free()
-		_dock = null
