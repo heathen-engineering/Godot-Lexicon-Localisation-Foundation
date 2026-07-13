@@ -192,10 +192,10 @@ jobs:
           cp -r addons/FoundationLexicon/gate package/addons/FoundationLexicon/
           cp addons/FoundationLexicon/plugin.cfg package/addons/FoundationLexicon/
           # Ships inert (.gdextension.available, not .gdextension) — Godot's boot-time
-          # scan never auto-loads it; gate/heathen_gate.gd renames it to the real name
-          # once LexiconEditorPlugin.gd confirms Godot-Game-Framework is present.
+          # scan never auto-loads it; gate/extension_resolver_gate.gd renames it to the
+          # real name once LexiconEditorPlugin.gd confirms Godot-Game-Framework is present.
           cp addons/FoundationLexicon/FoundationLexicon.gdextension.available package/addons/FoundationLexicon/
-          cp addons/FoundationLexicon/heathen_manifest.json package/addons/FoundationLexicon/
+          cp addons/FoundationLexicon/extension.manifest.json package/addons/FoundationLexicon/
           cp addons/FoundationLexicon/FoundationAutoload.gd package/addons/FoundationLexicon/
           cp addons/FoundationLexicon/FoundationAutoload.tscn package/addons/FoundationLexicon/
           cp addons/FoundationLexicon/LexiconSourceList.gd package/addons/FoundationLexicon/

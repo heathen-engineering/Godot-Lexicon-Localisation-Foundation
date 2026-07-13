@@ -9,10 +9,12 @@ extends EditorPlugin
 ##
 ## Gated: FoundationLexicon.gdextension (the native library everything here
 ## ultimately depends on — LexiconRegistry, the Subsystem integration, all
-## of it) ships inert until heathen_gate confirms Godot-Game-Framework is
-## actually installed. See gate/heathen_gate.gd and
-## Godot-GameplayTags-Foundation's GameplayTagsEditorPlugin.gd (the
-## reference implementation this mirrors) for the full mechanism and why.
+## of it) ships inert until Extension Resolver confirms Godot-Game-Framework
+## is actually installed (at a satisfying version — real version-guarding,
+## not just presence, since the migration off heathen_gate.gd). See
+## gate/extension_resolver_gate.gd and Godot-GameplayTags-Foundation's
+## GameplayTagsEditorPlugin.gd (the reference implementation this mirrors)
+## for the full mechanism and why.
 ##
 ## LexiconInspectorPlugin is loaded with a runtime load(), not a static
 ## type/preload — it does "is LexiconText"/"is LexiconAsset"/"is LexiconSound"
@@ -23,12 +25,12 @@ extends EditorPlugin
 ## native-type reference of its own (checked), so it's safe to construct
 ## normally below.
 
-const HeathenGate = preload("res://addons/FoundationLexicon/gate/heathen_gate.gd")
+const Gate = preload("res://addons/FoundationLexicon/gate/extension_resolver_gate.gd")
 
 var _inspector_plugin: Object
 
 func _enter_tree() -> void:
-	if HeathenGate.ensure_unlocked(self, "FoundationLexicon", _activate_tooling):
+	if Gate.ensure_unlocked(self, "FoundationLexicon", _activate_tooling):
 		_activate_tooling()
 
 # NOT named _build() — EditorPlugin already declares a virtual _build() -> bool
