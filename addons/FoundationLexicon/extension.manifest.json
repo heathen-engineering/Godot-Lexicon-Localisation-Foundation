@@ -2,7 +2,7 @@
     "schema_version": 2,
     "id": "FoundationLexicon",
     "display_name": "Foundation for Lexicon",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "repository_url": "https://github.com/heathen-engineering/Godot-Lexicon-Localisation-Foundation",
     "documentation_url": "https://heathen.group/kb/lexicon-welcome/",
     "support_url": "https://github.com/heathen-engineering/Godot-Lexicon-Localisation-Foundation/issues",
