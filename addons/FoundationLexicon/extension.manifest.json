@@ -1,9 +1,17 @@
 {
-    "schema_version": 1,
+    "schema_version": 2,
     "id": "FoundationLexicon",
     "display_name": "Foundation for Lexicon",
     "version": "1.0.0",
     "repository_url": "https://github.com/heathen-engineering/Godot-Lexicon-Localisation-Foundation",
+    "documentation_url": "https://heathen.group/kb/lexicon-welcome/",
+    "support_url": "https://github.com/heathen-engineering/Godot-Lexicon-Localisation-Foundation/issues",
+    "license_url": "https://github.com/heathen-engineering/Godot-Lexicon-Localisation-Foundation/blob/main/LICENSE",
+    "publisher": {
+        "name": "Heathen Engineering Limited",
+        "url": "https://heathen.group"
+    },
+    "description": "Per-culture localisation for Godot — fallback resolution of strings and assets from .helex sources, plus LexiconText/LexiconSound/LexiconAsset field wrappers. Ported from Unity-Lexicon-Localisation-Foundation.",
     "source": {
         "type": "github_release",
         "repo": "heathen-engineering/Godot-Lexicon-Localisation-Foundation"
