@@ -12,7 +12,7 @@ Culture-aware string and asset localisation for Godot 4, with a three-mode fallb
 
 > [!TIP]
 > **Looking for the easiest way to install?**
-> Copy `addons/FoundationLexicon/` straight into your project's `addons/` folder — there's no external package manager step. See [Install](#install) below.
+> Copy `addons/FoundationLexicon/` straight into your project's `addons/` folder. There's no external package manager step. See [Install](#install) below.
 
 ---
 
@@ -22,7 +22,7 @@ Culture-aware string and asset localisation for Godot 4, with a three-mode fallb
 [![Unity](https://img.shields.io/badge/Unity-6000%20%2B-black?style=for-the-badge&logo=unity&logoColor=white)](https://github.com/heathen-engineering/Unity-Lexicon-Localisation-Foundation)
 
 > [!NOTE]
-> This Godot port treats [Unity-Lexicon-Localisation-Foundation](https://github.com/heathen-engineering/Unity-Lexicon-Localisation-Foundation) as the gold-standard reference — it's the newer, more complete of the two prior implementations. The `.helex` JSON schema and fallback-resolution algorithm are ported from it directly; only the asset-addressing layer changes (see below).
+> This Godot port treats [Unity-Lexicon-Localisation-Foundation](https://github.com/heathen-engineering/Unity-Lexicon-Localisation-Foundation) as the gold-standard reference. It's the newer, more complete of the two prior implementations. The `.helex` JSON schema and fallback-resolution algorithm are ported from it directly; only the asset-addressing layer changes (see below).
 
 ---
 
@@ -30,12 +30,18 @@ Culture-aware string and asset localisation for Godot 4, with a three-mode fallb
 
 - Godot **4.6** or compatible
 - [godot-cpp](https://github.com/godotengine/godot-cpp), checked out locally, for building from source
-- [Godot-xxHash](https://github.com/heathen-engineering/Godot-xxHash) (compiled in directly — see [Build](#build))
+- [Godot-xxHash](https://github.com/heathen-engineering/Godot-xxHash) (compiled in directly, see [Build](#build))
 - [Godot-Game-Framework](https://github.com/heathen-engineering/Godot-Game-Framework), **enabled in the
-  consuming project** — a runtime dependency, not a build-time one. If it's missing, enabling this
+  consuming project**. This is a runtime dependency, not a build-time one. If it's missing, enabling this
   plugin walks you through fetching it automatically via
   [Extension Resolver for Godot](https://github.com/heathen-engineering/Godot-Extension-Resolver);
   see that project's README for how the manifest-driven resolution works.
+
+---
+
+## Support
+
+For general questions, help, and troubleshooting, join our [Discord](https://discord.gg/xmtRNkW7hW). Thousands of developers are there and can often help faster than waiting on a maintainer. Please use [GitHub Issues](https://github.com/heathen-engineering/Godot-Lexicon-Localisation-Foundation/issues) for a confirmed bug or a feature request that needs tracking, not general support questions.
 
 ---
 
@@ -61,9 +67,9 @@ Lexicon Foundation gives you a structured localisation system built on these cor
 | `LexiconSound` | A `Resource` field wrapper for localisation-aware `AudioStream` references |
 | `LexiconAsset` | A `Resource` field wrapper for any other localisation-aware `Resource` (textures, packed scenes, ...) |
 
-Resolution follows a fallback chain: **exact active culture → base language of active culture (e.g. `"fr"` from `"fr-CA"`) → default culture (+ its base) → the culture-neutral `"default"` source.** Runtime-injected entries (`set_string`/`set_asset`/`set_asset_path`) survive re-registration and always take priority — so a save-game or debug override never gets clobbered by a source reload.
+Resolution follows a fallback chain: **exact active culture → base language of active culture (e.g. `"fr"` from `"fr-CA"`) → default culture (+ its base) → the culture-neutral `"default"` source.** Runtime-injected entries (`set_string`/`set_asset`/`set_asset_path`) survive re-registration and always take priority, so a save-game or debug override never gets clobbered by a source reload.
 
-This is a core dependency for [Godot-Ogham-Storyteller-Foundation](https://github.com/heathen-engineering/Godot-Ogham-Storyteller-Foundation) — dialogue lines, speaker names, and voice-over/portrait references are authored as `LexiconText`/`LexiconSound`/`LexiconAsset` fields on graph nodes.
+This is a core dependency for [Godot-Ogham-Storyteller-Foundation](https://github.com/heathen-engineering/Godot-Ogham-Storyteller-Foundation). Dialogue lines, speaker names, and voice-over/portrait references are authored as `LexiconText`/`LexiconSound`/`LexiconAsset` fields on graph nodes.
 
 ---
 
@@ -71,7 +77,7 @@ This is a core dependency for [Godot-Ogham-Storyteller-Foundation](https://githu
 
 Copy `addons/FoundationLexicon/` into your project's `addons/` folder. Enable the plugin from **Project Settings → Plugins**.
 
-List your project's `.helex` files in a `LexiconSourceList` resource (`helex_paths: PackedStringArray`), then add `FoundationAutoload.tscn` as an AutoLoad and assign your list(s) to its `source_lists` export — they're registered on `_ready()`, and the active culture is set from `OS.get_locale()`.
+List your project's `.helex` files in a `LexiconSourceList` resource (`helex_paths: PackedStringArray`), then add `FoundationAutoload.tscn` as an AutoLoad and assign your list(s) to its `source_lists` export. They're registered on `_ready()`, and the active culture is set from `OS.get_locale()`.
 
 ## Build
 
@@ -90,7 +96,7 @@ Output lands in `addons/FoundationLexicon/bin/`.
 
 ## `.helex` file format
 
-Tags are defined in `.helex` files — UTF-8 JSON documents placed anywhere in the project source tree and registered via `register_source()`.
+Tags are defined in `.helex` files, UTF-8 JSON documents placed anywhere in the project source tree and registered via `register_source()`.
 
 ```json
 {
@@ -107,12 +113,12 @@ Tags are defined in `.helex` files — UTF-8 JSON documents placed anywhere in t
 | Field | Description |
 |-------|-------------|
 | `assetId` | Stable internal identifier for the source (e.g. `"UI.Strings"`). An `assetId` of `"default"` (case-insensitive) additionally registers the source's entries as the culture-neutral last-resort fallback tier. |
-| `registered` | When `false`, the source is skipped entirely — useful for drafts. Defaults to `true`. |
+| `registered` | When `false`, the source is skipped entirely, useful for drafts. Defaults to `true`. |
 | `cultures` | BCP 47 culture codes this source provides entries for (e.g. `"en-GB"`, `"fr-CA"`). |
-| `entries` | Map of dot-path key → value. A plain JSON string registers a `LexiconText`-resolvable string entry. An object registers an asset entry: `path` (a `res://` path, loaded on demand via `ResourceLoader`), `sub` (optional sub-resource name), `hint` (`String`/`Sound`/`Texture`/`Sprite`/`PackedScene`/`Asset` — classifies the entry without loading it). |
+| `entries` | Map of dot-path key → value. A plain JSON string registers a `LexiconText`-resolvable string entry. An object registers an asset entry: `path` (a `res://` path, loaded on demand via `ResourceLoader`), `sub` (optional sub-resource name), `hint` (`String`/`Sound`/`Texture`/`Sprite`/`PackedScene`/`Asset`, classifies the entry without loading it). |
 
 > [!NOTE]
-> This schema is a straight port of Unity's `.helex` format — the only change is the asset-addressing field. Unity uses an Addressables `guid`; O3DE uses a compiled `AZ::Uuid`; Godot uses `path`, because a `res://` path **is** Godot's native addressable identifier already. There's no separate GUID/streaming layer to maintain.
+> This schema is a straight port of Unity's `.helex` format. The only change is the asset-addressing field. Unity uses an Addressables `guid`; O3DE uses a compiled `AZ::Uuid`; Godot uses `path`, because a `res://` path **is** Godot's native addressable identifier already. There's no separate GUID/streaming layer to maintain.
 
 **Key naming:** any non-empty dot-path string; leading/trailing dots are rejected by `validate_key`.
 
@@ -159,7 +165,7 @@ registry.set_asset_path("Character.MrsWilds.Portrait", "res://mods/portraits/wil
     LexiconRegistry.HINT_TEXTURE)
 ```
 
-**C#** — every type above has a matching wrapper class in `Heathen.Lexicon` (`LexiconRegistry`, `LexiconText`, `LexiconSound`, `LexiconAsset`) so C# code never touches `Engine.GetSingleton`/`Variant.Call` directly. See the `CSharp/` folder.
+**C#**: every type above has a matching wrapper class in `Heathen.Lexicon` (`LexiconRegistry`, `LexiconText`, `LexiconSound`, `LexiconAsset`) so C# code never touches `Engine.GetSingleton`/`Variant.Call` directly. See the `CSharp/` folder.
 
 ---
 
@@ -169,17 +175,17 @@ registry.set_asset_path("Character.MrsWilds.Portrait", "res://mods/portraits/wil
 
 | Method | Description |
 |--------|-------------|
-| `hash(text)` | Hash a string to an id (xxHash3\_64bits, seed 0) — same hash space as GameplayTags |
+| `hash(text)` | Hash a string to an id (xxHash3\_64bits, seed 0), same hash space as GameplayTags |
 | `validate_key(dot_path)` *(static)* | Validate format without registering |
 | `register_source(helex_json)` | Parse and register a `.helex` JSON source |
-| `unregister_all()` | Full reset — every source, override, and culture |
+| `unregister_all()` | Full reset: every source, override, and culture |
 | `get_registered_source_count()` | Diagnostics |
 | `use_culture(code)` | Set the active culture; fires `culture_changed` |
 | `get_active_culture()` / `get_default_culture()` | Current fallback-chain anchors |
 | `get_mapped_culture_codes()` | Every culture with at least one registered entry |
 | `get_display_name(asset_id)` | Resolves `"Language.{asset_id}"`, falling back to `asset_id` itself |
 | `resolve_string(key)` / `resolve_string_path(dot_path)` | String resolution through the fallback chain |
-| `resolve_asset(key)` / `resolve_asset_path(dot_path)` | Asset resolution — direct reference wins, else loads `asset_path` on demand |
+| `resolve_asset(key)` / `resolve_asset_path(dot_path)` | Asset resolution: direct reference wins, else loads `asset_path` on demand |
 | `get_hint(key)` | The `LexiconHintType` for a key, or `HINT_NONE` if unregistered |
 | `set_string(dot_path, value, culture = "")` | Inject/overwrite a string entry (empty culture = active) |
 | `set_asset(dot_path, resource, culture = "")` | Inject/overwrite a direct asset reference; hint inferred from the resource's class |
@@ -192,13 +198,13 @@ registry.set_asset_path("Character.MrsWilds.Portrait", "res://mods/portraits/wil
 
 ### `LexiconText` / `LexiconSound` / `LexiconAsset` (`Resource`)
 
-All three share the same shape — a `mode` plus either a dot-path key (Localised) or a literal value:
+All three share the same shape: a `mode` plus either a dot-path key (Localised) or a literal value:
 
 | Property / Method | Description |
 |--------------------|-------------|
 | `mode` | `MODE_LOCALISED` / `MODE_LITERAL` / `MODE_INVARIANT` |
 | `key_or_value` (`LexiconText`) / `key` (`LexiconSound`, `LexiconAsset`) | Dot-path key when Localised; ignored otherwise |
-| `key_or_value` also holds the literal string directly (`LexiconText`) when Literal/Invariant | — |
+| `key_or_value` also holds the literal string directly (`LexiconText`) when Literal/Invariant | N/A |
 | `literal_sound` (`LexiconSound`) / `literal_asset` (`LexiconAsset`) | The literal `Resource` value when Literal/Invariant, and the fallback used in Localised mode if unregistered |
 | `is_localised()` / `is_literal()` / `is_invariant()` | Mode checks |
 | `get_hash()` | The id for the current key (0 if unset) |
@@ -212,14 +218,14 @@ All three share the same shape — a `mode` plus either a dot-path key (Localise
 ## Editor tooling
 
 Enable the plugin (Project Settings > Plugins) to get:
-- **Key-picker Inspector field** — `LexiconText`/`LexiconAsset`/`LexiconSound`'s `key_or_value`/`key` fields get a compact editor: a Mode dropdown, and either a searchable Tree popup of every key across every `.helex` file in the project (Localised) or a plain text/`EditorResourcePicker` field for the literal value (Literal/Invariant). `LexiconKeyPickerProperty` is reusable by other addons as a plain global `class_name`.
-- **"Lexicon" bottom-panel dock** — default/fallback culture and available-cultures list (validated against a ~148-entry BCP-47 `KnownCultures` table ported from O3DE), plus a key browser aggregating every `.helex` file project-wide, flagging (in red) any key missing an entry for a configured available culture. The closest Godot analog to Unity's `Project Settings > Subsystems > Localisation Lexicon` page.
+- **Key-picker Inspector field**: `LexiconText`/`LexiconAsset`/`LexiconSound`'s `key_or_value`/`key` fields get a compact editor: a Mode dropdown, and either a searchable Tree popup of every key across every `.helex` file in the project (Localised) or a plain text/`EditorResourcePicker` field for the literal value (Literal/Invariant). `LexiconKeyPickerProperty` is reusable by other addons as a plain global `class_name`.
+- **"Lexicon" bottom-panel dock**: default/fallback culture and available-cultures list (validated against a ~148-entry BCP-47 `KnownCultures` table ported from O3DE), plus a key browser aggregating every `.helex` file project-wide, flagging (in red) any key missing an entry for a configured available culture. The closest Godot analog to Unity's `Project Settings > Subsystems > Localisation Lexicon` page.
 
 ## Not yet (fully) ported
 
-- **Async streaming.** Unity's Addressables seam (`LexiconAssetLoader`, reference-counted `AcquireAsset`/`ReleaseAsset`) has no Godot equivalent yet — `resolve_asset` calls `ResourceLoader::load()` synchronously. `ResourceLoader.load_threaded_request` is a natural drop-in addition later if voice-over streaming windows become a real cost; nothing in the current design blocks it.
-- **Gatherer, CSV import/export, binary-compiler build pipeline** (O3DE's `.helex` → `.lexicon` AssetBuilder step) are still deferred — the key-picker/dock above cover the highest-value authoring gap; these are secondary.
-- **Burst string snapshots.** Unity's `GetStringSnapshot` (a `NativeHashMap` for Job System access) has no Godot equivalent need — the registry already runs natively inside the GDExtension.
+- **Async streaming.** Unity's Addressables seam (`LexiconAssetLoader`, reference-counted `AcquireAsset`/`ReleaseAsset`) has no Godot equivalent yet. `resolve_asset` calls `ResourceLoader::load()` synchronously. `ResourceLoader.load_threaded_request` is a natural drop-in addition later if voice-over streaming windows become a real cost; nothing in the current design blocks it.
+- **Gatherer, CSV import/export, binary-compiler build pipeline** (O3DE's `.helex` → `.lexicon` AssetBuilder step) are still deferred. The key-picker/dock above cover the highest-value authoring gap; these are secondary.
+- **Burst string snapshots.** Unity's `GetStringSnapshot` (a `NativeHashMap` for Job System access) has no Godot equivalent need. The registry already runs natively inside the GDExtension.
 
 ## License
 
