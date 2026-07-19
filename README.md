@@ -19,7 +19,7 @@ Culture-aware string and asset localisation for Godot 4, with a three-mode fallb
 ## 🛠 Also Available For
 
 [![O3DE](https://img.shields.io/badge/O3DE-25.10%20%2B-%2300AEEF?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAxTDEgNy40djkuMkwxMiAyM2wxMS02LjRWNy40TDEyIDF6bTkuMSAxNC45TDExLjUgMjEuM2wtOC42LTYuNFY4LjFsOC42LTYuNCA5LjEgNi40djYuOHpNMTEuNSA0LjZMMi45IDkuNnY0LjhsOC42IDUuMSA4LjYtNS4xVjkuNmwtOC42LTUuMHoiLz48L3N2Zz4=)](https://github.com/heathen-engineering/O3DE-Lexicon-Foundation)
-[![Unity](https://img.shields.io/badge/Unity-6000%20%2B-black?style=for-the-badge&logo=unity&logoColor=white)](https://github.com/heathen-engineering/Unity-Lexicon-Localisation-Foundation)
+[![Unity](https://img.shields.io/badge/Unity-6000%20%2B-%23313131?style=for-the-badge&logo=unity&logoColor=white)](https://github.com/heathen-engineering/Unity-Lexicon-Localisation-Foundation)
 
 > [!NOTE]
 > This Godot port treats [Unity-Lexicon-Localisation-Foundation](https://github.com/heathen-engineering/Unity-Lexicon-Localisation-Foundation) as the gold-standard reference. It's the newer, more complete of the two prior implementations. The `.helex` JSON schema and fallback-resolution algorithm are ported from it directly; only the asset-addressing layer changes (see below).
