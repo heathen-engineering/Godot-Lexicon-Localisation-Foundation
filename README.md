@@ -10,7 +10,7 @@
 # Lexicon Localisation Foundation for Godot
 
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)
-![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green?style=flat-square)
+[![Maintained](https://img.shields.io/badge/Maintained-On%20Codeberg-brightgreen?style=flat-square)](https://codeberg.org/Heathen-Engineering/Godot-Lexicon-Localisation-Foundation)
 ![Godot](https://img.shields.io/badge/Godot-4.6%20%2B-%23478CBF?style=flat-square&logo=godotengine&logoColor=white)
 
 Culture-aware string and asset localisation for Godot 4, with a three-mode fallback chain per field (Localised / Literal / Invariant), keyed by xxHash3-64 dot-paths so lookups cost nothing at runtime once registered.
