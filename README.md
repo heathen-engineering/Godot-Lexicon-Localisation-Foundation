@@ -21,7 +21,7 @@ Culture-aware string and asset localisation for Godot 4, with a three-mode fallb
 
 > [!TIP]
 > **Looking for the easiest way to install?**
-> Copy `addons/FoundationLexicon/` straight into your project's `addons/` folder. There's no external package manager step. See [Install](#install) below.
+> Copy `Archive/addons/FoundationLexicon/` straight into your project's `addons/` folder. There's no external package manager step. See [Install](#install) below.
 
 ---
 
@@ -87,7 +87,7 @@ This is a core dependency for [Godot-Ogham-Storyteller-Foundation](https://githu
 
 ## Install
 
-Copy `addons/FoundationLexicon/` into your project's `addons/` folder. Enable the plugin from **Project Settings → Plugins**.
+Copy `Archive/addons/FoundationLexicon/` into your project's `addons/` folder. Enable the plugin from **Project Settings → Plugins**.
 
 List your project's `.helex` files in a `LexiconSourceList` resource (`helex_paths: PackedStringArray`), then add `FoundationAutoload.tscn` as an AutoLoad and assign your list(s) to its `source_lists` export. They're registered on `_ready()`, and the active culture is set from `OS.get_locale()`.
 
@@ -102,7 +102,7 @@ cmake -S addons/FoundationLexicon -B addons/FoundationLexicon/build \
 cmake --build addons/FoundationLexicon/build
 ```
 
-Output lands in `addons/FoundationLexicon/bin/`.
+Output lands in `Archive/addons/FoundationLexicon/bin/`.
 
 ---
 
